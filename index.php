@@ -77,29 +77,31 @@
                         <h2><a href="product.html">Watch</a></h2>
                         <img src="defaultWatch.jpg" class = "watchimg">
                     </div>
+
                     <?php 
-                        $sql = "SELECT COUNT(*) FROM Products";
-                        $item = mysqli_query($connection, $sql);
-                    //  $item = mysqli_fetch_row($result)[0];
-                        $sql_message = "SELECT ProductName FROM Products WHERE ProductId= $item";
-                        $sql_imglink = "SELECT Image FROM Products WHERE ProductId = $item";
-                        $sql_imgalt = "SELECT ProductDescription FROM Products WHERE ProductId = $item";
-                        $sql_visible = "SELECT IsVisible FROM Products  WHERE ProductId = $item";
-                        while ($item >= 0){
-                            $data  = [
-                                "message"=> mysqli_query($connection, $sql_message),
-                                "imglink"=> mysqli_query($connection, $sql_imglink),
-                                "imgalt"=> mysqli_query($connection, $sql_imgalt)];
-                            $visible = mysqli_query($connection, $sql_visible);
-                            if($visible == 1){?>
-                                <div class = "watch"> 
-                                    <h2><a href=""><?php echo $data["message"];?></h2>
-                                    <img src="<?php echo $data["imglink"]?>" alt="<?php echo $data["imgalt"]?>">
-                                </div>
-                            <?php
-                            }
-                        $item = $item - 1;
-                        }?>
+                    $sql = "SELECT COUNT(*) FROM Products";
+                    $item = mysqli_query($connection, $sql);
+                //  $item = mysqli_fetch_row($result)[0];
+                    $sql_message = "SELECT ProductName FROM Products WHERE ProductId= $item";
+                    $sql_imglink = "SELECT Image FROM Products WHERE ProductId = $item";
+                    $sql_imgalt = "SELECT ProductDescription FROM Products WHERE ProductId = $item";
+                    $sql_visible = "SELECT IsVisible FROM Products  WHERE ProductId = $item";
+                    for ($i = $item; $i >= 0; $i--){
+                        $data  = [
+                            "message"=> mysqli_query($connection, $sql_message),
+                            "imglink"=> mysqli_query($connection, $sql_imglink),
+                            "imgalt"=> mysqli_query($connection, $sql_imgalt)];
+                        print("test1");
+                        $visible = mysqli_query($connection, $sql_visible);
+                        if($visible == 1){?>
+                            <div class = "watch"> 
+                                <h2><a href=""><?php echo $data["message"];?></h2>
+                                <img src="<?php echo $data["imglink"]?>" alt="<?php echo $data["imgalt"]?>">
+                            </div>
+                        <?php
+                        }
+                    }?>
+
                 </div>
             </div>
             
